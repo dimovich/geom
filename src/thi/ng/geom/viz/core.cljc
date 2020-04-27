@@ -4,8 +4,8 @@
    [thi.ng.geom.vector :as v :refer [vec2 vec3]]
    [thi.ng.geom.utils :as gu]
    [thi.ng.geom.svg.core :as svg]
-   [thi.ng.ndarray.core :as nd]
-   [thi.ng.ndarray.contours :as contours]
+   ;;[thi.ng.ndarray.core :as nd]
+   ;;[thi.ng.ndarray.contours :as contours]
    [thi.ng.math.core :as m]
    [thi.ng.strf.core :as f]))
 
@@ -608,7 +608,7 @@
 ;; `:clamp` is enabled, the `:value-domain` acts as a kind of
 ;; amplification or compression function.
 
-(defn svg-heatmap
+#_(defn svg-heatmap
   [{:keys [x-axis y-axis project]}
    {:keys [matrix value-domain clamp palette palette-scale attribs shape]
     :or {value-domain  [0.0 1.0]
@@ -651,10 +651,10 @@
 ;; | `:value-domain`    | N          | [0 1]        | Domain interval of matrix values                               |
 ;; | `:contour-attribs` | N          | nil          | Function to produce shape attribs map for each threshold level |
 
-(defn matrix-2d
+#_(defn matrix-2d
   [w h values] (nd/ndarray :float32 values [h w]))
 
-(defn contour-matrix
+#_(defn contour-matrix
   [w h values]
   (contours/set-border-2d (matrix-2d w h values) -1e9))
 
@@ -664,7 +664,7 @@
     (let [contour (map (fn [[y x]] [(scale-x x) (scale-y y)]) contour)]
       (svg/polygon (map project contour) attribs))))
 
-(defn svg-contour-plot
+#_(defn svg-contour-plot
   [{:keys [x-axis y-axis project]}
    {:keys [matrix attribs levels palette palette-scale value-domain contour-attribs]
     :or   {value-domain    [0.0 1.0]
