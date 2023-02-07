@@ -3,10 +3,9 @@
 
 [[./assets/svo-d7.jpg]]
 
-[[https://discord.gg/JhYcmBw][https://img.shields.io/discord/445761008837984256.svg]]
-
 * Contents                                                         :toc_3_gh:
  - [[#about-the-project][About the project]]
+     - [[#status][Status]]
      - [[#leiningen-coordinates][Leiningen coordinates]]
          - [[#latest-snapshot][Latest snapshot]]
          - [[#latest-stable][Latest stable]]
@@ -26,25 +25,29 @@
          - [[#viz][viz]]
          - [[#voxel][voxel]]
          - [[#opengl--webgl][OpenGL & WebGL]]
-     - [[#status][Status]]
      - [[#release-history--changelog][Release history & changelog]]
      - [[#contributors][Contributors]]
      - [[#license][License]]
 
 * About the project
+
+** Status
+
+The project was in active, almost daily development from late 2011 - summer 2016
+during its 4th iteration/rewrite cycle. Originally developed in a Literate
+Programming style using Emacs & Org-mode, in May 2018 it was decided to revert
+to a traditional Clojure project setup to encourage more contributions from
+other interested parties. The original .org source files are kept for reference
+in the [[./org/]] directory until further notice.
+
+Regardless of version number, the library is mature and has been used
+successfully in several commercial projects over the past 10 years and can be
+considered stable for most use cases.
+
 ** Leiningen coordinates
-*** Latest snapshot
-#+BEGIN_SRC clojure
-  [thi.ng/geom "1.0.0-RC4"]
-#+END_SRC
 
 #+BEGIN_SRC clojure
-  [thi.ng/geom "0.0.1178-SNAPSHOT"]
-#+END_SRC
-
-*** Latest stable
-#+BEGIN_SRC clojure
-  [thi.ng/geom "0.0.908"]
+  [thi.ng/geom "1.0.0"]
 #+END_SRC
 
 *** Additional dependencies for JOGL
@@ -108,7 +111,7 @@ this repo under the =/examples= directory:
 - [[./org/examples/gl/webgl.org][WebGL demos]] (Clojurescript + links to live versions)
 - [[./org/examples/svg/demos.org][SVG examples]] (incl. 3D rendered meshes in SVG)
 - [[./org/examples/viz/demos.org][Visualization examples]] (charts, heatmaps, timelines etc.)
-- [[./org/examples/types/ptf.org][PTF mesh examples]] (mesh skinning & Luxrender)
+- [[./org/examples/ptf/demos.org][PTF mesh examples]] (mesh skinning & Luxrender)
 - [[./org/examples/voxel/demos.org][Voxel examples]] (isosurface extraction from volumetric data)
 
 Interactive examples:
@@ -134,8 +137,8 @@ A preliminary list of other projects using this library:
 - [[https://github.com/postspectacular/devart-codefactory/][Google DevArt Co(de)Factory]]
 - [[https://github.com/jackrusher/geometer/][Geometer]] (by [[https://github.com/jackrusher][Jack Rusher]])
 - [[http://holiday2014.movingbrands.com][MB Home installation]]
-- [[http://github.com/learn-postspectacular/resonate-2015-workshop][Resonate 2015 workshop]]
-- [[http://github.com/learn-postspectacular/resonate-2014-workshop][Resonate 2014 workshop]]
+- [[http://github.com/learn-postspectacular/resonate-workshop-2015][Resonate 2015 workshop]]
+- [[https://github.com/learn-postspectacular/resonate-workshop-2014][Resonate 2014 workshop]]
 - [[http://github.com/thi-ng/luxor][thi.ng/luxor]]
 - [[http://github.com/thi-ng/morphogen][thi.ng/morphogen]]
 - [[http://thi.ng/][thi.ng website]]
@@ -207,7 +210,7 @@ provided, incl. OpenGL 3/4, WebGL & SVG support, to allow visualizing
 results and/or exporting generated assets. 2D/3D shape/mesh exporters
 are provided as well and together with sister libraries like
 [[https://github.com/thi-ng/luxor][thi.ng/luxor]], it's also possible to generate complete 3D scenes for
-high quality & high resolution non-realtime rendering using [[http://luxrender.net][Luxrender]].
+high quality & high resolution non-realtime rendering using [[https://github.com/LuxRender][Luxrender]] now [[https://luxcorerender.org/][LuxCoreRender]].
 
 Furthermore, providing all functionality under a common API for both
 Clojure & Clojurescript, makes it trivial to offload heavy operations
@@ -216,7 +219,7 @@ Clojure & Clojurescript, makes it trivial to offload heavy operations
 ** Project structure
 *** core
 
-[[./src/core/][source]]
+[[./src/thi/ng/geom/core/][source]]
 
 These namespaces define the core functionality of this library,
 including the approx. 50 protocols and implementations of fundamental
@@ -225,7 +228,7 @@ quaternion (+ related convenience constructors & conversions)
 
 *** types
 
-[[./src/types/][source]]
+[[./src/thi/ng/geom/][source]]
 
 This directory contains all high-level 2d/3d data types with their
 implementations of the various core protocols. From a user
@@ -234,7 +237,7 @@ project's core functionality.
 
 *** utils
 
-[[./src/utils/][source]]
+[[./src/thi/ng/geom/utils/][source]]
 
 A number of often needed utility functions to deal with point
 collections, normals, path sampling, triangle properties etc. Also
@@ -243,7 +246,7 @@ Delaunay triangulation.
 
 *** mesh
 
-[[./src/mesh/][source]]
+[[./src/thi/ng/geom/mesh/][source]]
 
 Several tools & operations related to working with 3d meshes, incl.
 I/O, subdivisions, repair / cleaning, CSG / Boolean mesh merge,
@@ -251,7 +254,7 @@ mesh generators (polyhedra, lathe etc.)
 
 *** physics
 
-[[./src/physics/][source]]
+[[./src/thi/ng/geom/physics/][source]]
 
 This module provides a simple 2d/3d particle-based physics engine with
 Verlet integration and support for custom behaviors and constaints,
@@ -261,7 +264,7 @@ positive or negative force fields (attractors).
 
 *** svg
 
-[[./src/svg/][source]]
+[[./src/thi/ng/geom/svg/][source]]
 
 A module to help with building SVG based visualizations of geom
 entities using hiccup compatible syntax. Includes a customizable 3D
@@ -269,7 +272,7 @@ mesh renderer w/ software shader support.
 
 *** viz
 
-[[./src/viz/][source]]
+[[./src/thi/ng/geom/viz/][source]]
 
 Declarative, highly customizable 2D data visualization module with ~10
 different layout methods, 3 axis types, cartesian and polar domain
@@ -277,7 +280,7 @@ support. Currently SVG only, but planned to be format-independent.
 
 *** voxel
 
-[[./src/voxel/][source]]
+[[./src/thi/ng/geom/voxel/][source]]
 
 An experimental implementation of a in-memory sparse voxel tree (SVO)
 and related functionality to extract isosurface polygon meshes from
@@ -285,7 +288,7 @@ the tree.
 
 *** OpenGL & WebGL
 
-[[./src/gl/][source]]
+[[./src/thi/ng/geom/gl/][source]]
 
 This module provides a unified API to common OpenGL/WebGL
 functionality (context creation, shader management & presets, buffer
@@ -294,50 +297,32 @@ types, conversion & rendering functions, cameras etc. to simplify the
 use of other geometry types defined in this project with OpenGL, both on
 the desktop and in the browser. The Clojure version wraps JOGL.
 
-** Status
-
-The project was in active, regular development from late 2011 - summer
-2016 during its 4th iteration/rewrite cycle. Originally developed in a
-Literate Programming style using Emacs & Org-mode, it has recently (May
-2018) been decided to revert to a traditional Clojure project setup to
-encourage more contributions from other interested parties. The original
-ORG source files are kept for reference in the [[./org/]] directory
-until further notice.
-
-The library is mature and has been used successfully in several
-commercial projects over the past 5 years and can be considered stable
-for most use cases.
-
-A full test suite, website & tutorials are actively being worked on
-and the various examples are used as test cases as well.
-
-*Note:* This library heavily relies on the conditional reader syntax
-of recent Clojure & Clojurescript versions and therefore is *not
-compatible with Clojure versions < 1.7.0*...
-
 ** Release history & changelog
 
-See [[../CHANGELOG.org][CHANGELOG.org]] for further details.
+See [[./CHANGELOG.org][CHANGELOG.org]] for further details.
 
-| *Version* | *Released* | *Lein coordinates*          | *Tagged Github URL* |
-|-----------+------------+-----------------------------+---------------------|
-| 1.0.0-RC3 | 2018-06-01 | =[thi.ng/geom "1.0.0-RC3"]= | [[https://github.com/thi-ng/geom/tree/1.0.0-RC3][1.0.0-RC3]]           |
-| 1.0.0-RC2 | 2018-06-01 | =[thi.ng/geom "1.0.0-RC2"]= | [[https://github.com/thi-ng/geom/tree/1.0.0-RC2][1.0.0-RC2]]           |
-| 1.0.0-RC1 | 2018-05-31 | =[thi.ng/geom "1.0.0-RC1"]= | [[https://github.com/thi-ng/geom/tree/1.0.0-RC1][1.0.0-RC1]]           |
-|   0.0.908 | 2015-11-08 | =[thi.ng/geom "0.0.908"]=   | [[https://github.com/thi-ng/geom/tree/r908][r908]]                |
-|   0.0.881 | 2015-06-21 | =[thi.ng/geom "0.0.881"]=   | [[https://github.com/thi-ng/geom/tree/r881][r881]]                |
-|   0.0.859 | 2015-06-15 | =[thi.ng/geom "0.0.859"]=   | [[https://github.com/thi-ng/geom/tree/r856][r859]]                |
-|   0.0.856 | 2015-06-14 | =[thi.ng/geom "0.0.856"]=   | [[https://github.com/thi-ng/geom/tree/r856][r856]]                |
-|   0.0.815 | 2015-06-01 | =[thi.ng/geom "0.0.815"]=   | [[https://github.com/thi-ng/geom/tree/r815][r815]]                |
-|   0.0.803 | 2015-05-26 | =[thi.ng/geom "0.0.803"]=   | [[https://github.com/thi-ng/geom/tree/r803][r803]]                |
-|   0.0.783 | 2015-04-27 | =[thi.ng/geom "0.0.783"]=   | [[https://github.com/thi-ng/geom/tree/r783][r783]]                |
-|   0.0.770 | 2015-03-29 | =[thi.ng/geom "0.0.770"]=   | [[https://github.com/thi-ng/geom/tree/r770][r770]]                |
-|   0.0.743 | 2015-03-23 | =[thi.ng/geom "0.0.743"]=   | [[https://github.com/thi-ng/geom/tree/r743][r743]]                |
-|   0.0.737 | 2015-03-22 | =[thi.ng/geom "0.0.737"]=   | [[https://github.com/thi-ng/geom/tree/r737][r737]]                |
-|   0.0-725 | 2015-03-15 | =[thi.ng/geom "0.0-725"]=   | [[https://github.com/thi-ng/geom/tree/r725][r725]]                |
-|   0.0-715 | 2015-02-25 | =[thi.ng/geom "0.0-715"]=   | [[https://github.com/thi-ng/geom/tree/r715][r715]]                |
-|   0.0-709 | 2015-02-22 | =[thi.ng/geom "0.0-709"]=   | [[https://github.com/thi-ng/geom/tree/r709][r709]]                |
-|     0.2.0 | 2014-03-10 | =[thi.ng/geom "0.2.0"]=     | [[https://github.com/thi-ng/geom/tree/0.2.0][0.2.0]]               |
+| *Version* | *Released* | *Lein coordinates*          | *Tagged Github URL*                                          |
+|-----------+------------+-----------------------------+--------------------------------------------------------------|
+| 1.0.0     | 2023-01-22 | =[thi.ng/geom "1.0.0"]=     | [[https://github.com/thi-ng/geom/tree/1.0.0][1.0.0]]         |
+| 1.0.0-RC5 | 2022-04-23 | =[thi.ng/geom "1.0.0-RC5"]= | [[https://github.com/thi-ng/geom/tree/1.0.0-RC5][1.0.0-RC5]] |
+| 1.0.0-RC4 | 2019-10-07 | =[thi.ng/geom "1.0.0-RC4"]= | [[https://github.com/thi-ng/geom/tree/1.0.0-RC4][1.0.0-RC4]] |
+| 1.0.0-RC3 | 2018-06-01 | =[thi.ng/geom "1.0.0-RC3"]= | [[https://github.com/thi-ng/geom/tree/1.0.0-RC3][1.0.0-RC3]] |
+| 1.0.0-RC2 | 2018-06-01 | =[thi.ng/geom "1.0.0-RC2"]= | [[https://github.com/thi-ng/geom/tree/1.0.0-RC2][1.0.0-RC2]] |
+| 1.0.0-RC1 | 2018-05-31 | =[thi.ng/geom "1.0.0-RC1"]= | [[https://github.com/thi-ng/geom/tree/1.0.0-RC1][1.0.0-RC1]] |
+|   0.0.908 | 2015-11-08 | =[thi.ng/geom "0.0.908"]=   | [[https://github.com/thi-ng/geom/tree/r908][r908]]           |
+|   0.0.881 | 2015-06-21 | =[thi.ng/geom "0.0.881"]=   | [[https://github.com/thi-ng/geom/tree/r881][r881]]           |
+|   0.0.859 | 2015-06-15 | =[thi.ng/geom "0.0.859"]=   | [[https://github.com/thi-ng/geom/tree/r856][r859]]           |
+|   0.0.856 | 2015-06-14 | =[thi.ng/geom "0.0.856"]=   | [[https://github.com/thi-ng/geom/tree/r856][r856]]           |
+|   0.0.815 | 2015-06-01 | =[thi.ng/geom "0.0.815"]=   | [[https://github.com/thi-ng/geom/tree/r815][r815]]           |
+|   0.0.803 | 2015-05-26 | =[thi.ng/geom "0.0.803"]=   | [[https://github.com/thi-ng/geom/tree/r803][r803]]           |
+|   0.0.783 | 2015-04-27 | =[thi.ng/geom "0.0.783"]=   | [[https://github.com/thi-ng/geom/tree/r783][r783]]           |
+|   0.0.770 | 2015-03-29 | =[thi.ng/geom "0.0.770"]=   | [[https://github.com/thi-ng/geom/tree/r770][r770]]           |
+|   0.0.743 | 2015-03-23 | =[thi.ng/geom "0.0.743"]=   | [[https://github.com/thi-ng/geom/tree/r743][r743]]           |
+|   0.0.737 | 2015-03-22 | =[thi.ng/geom "0.0.737"]=   | [[https://github.com/thi-ng/geom/tree/r737][r737]]           |
+|   0.0-725 | 2015-03-15 | =[thi.ng/geom "0.0-725"]=   | [[https://github.com/thi-ng/geom/tree/r725][r725]]           |
+|   0.0-715 | 2015-02-25 | =[thi.ng/geom "0.0-715"]=   | [[https://github.com/thi-ng/geom/tree/r715][r715]]           |
+|   0.0-709 | 2015-02-22 | =[thi.ng/geom "0.0-709"]=   | [[https://github.com/thi-ng/geom/tree/r709][r709]]           |
+|     0.2.0 | 2014-03-10 | =[thi.ng/geom "0.2.0"]=     | [[https://github.com/thi-ng/geom/tree/0.2.0][0.2.0]]         |
 
 ** Contributors
 
@@ -355,6 +340,6 @@ See [[../CHANGELOG.org][CHANGELOG.org]] for further details.
 
 ** License
 
-(c) 2013 - 2018 Karsten Schmidt
+(c) 2013 - 2023 Karsten Schmidt
 
 This project is open source and licensed under the [[http://www.apache.org/licenses/LICENSE-2.0][Apache Software License 2.0]].
